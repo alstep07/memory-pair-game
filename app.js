@@ -1,17 +1,16 @@
 const main = document.querySelector(".main");
-const cards = [
-	{ src: "./img/js.png" },
-	{ src: "./img/react.png" },
-	{ src: "./img/html.png" },
-	{ src: "./img/css.png" },
-	{ src: "./img/ts.png" },
-	{ src: "./img/git.png" },
-];
+const frontImgSrc = "./img/front.png";
+const ids = [0,1,2,3,4,5];
 
-const container = document.createDocumentFragment();
+function getRandomIds(arr){
+	return [...arr,...arr].sort(function(){return 0.5 - Math.random()});
+}
 
-function render(image) {
-	const frontImgSrc = "./img/kottans.png";
+function tryMatch(){
+	
+}
+
+function createCard(id) {
 	const card = document.createElement("div");
 	const front = document.createElement("div");
 	const back = document.createElement("div");
@@ -23,7 +22,7 @@ function render(image) {
 	card.append(front, back);
 
 	frontImg.setAttribute("src", frontImgSrc);
-	backImg.setAttribute("src", image.src);
+	backImg.setAttribute("src", `./img/${id}.png`);
 
 	front.classList.add("card__front");
 	back.classList.add("card__back");
@@ -35,10 +34,7 @@ function render(image) {
 		card.classList.toggle("card-active");
 	});
 
-	return card;
+	main.append(card);
 }
 
-cards.forEach(card => container.append(render(card)));
-cards.forEach(card => container.append(render(card)));
-
-main.append(container);
+getRandomIds(ids).forEach(id => createCard(id));
