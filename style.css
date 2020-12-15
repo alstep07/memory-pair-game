@@ -6,25 +6,26 @@
 }
 
 .header {
-	height: 80px;
-	background-color: #fff;
+	height: 60px;
+	width: 100%;
+	background-color: #f1f1f1;
 	text-align: center;
-	padding-top: 1rem;
+	padding-top: .75rem;
 	box-shadow: 0 0 6px #999 ;
 }
 
 .header__title {
-	font-size: 2.75rem;
+	font-size: 2rem;
 	color: #3b3b3b;
 }
 
 .main {
-	width: 820px;
+	width: 795px;
 	height: 600px;
 	margin: auto;
-	padding: 20px;
+	padding: 15px;
 	display: grid;
-	grid-gap: 20px;
+	grid-gap: 15px;
 	grid-template: repeat(3, 180px) / repeat(4, 180px);
 }
 
