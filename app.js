@@ -20,13 +20,13 @@ const game = {
 	},
 	winGame() {
 		if (this.count === 6) {
-			createMenu(`You won in ${this.moves / 2} moves!`);
+			createMenu(`You won in ${this.moves} moves!`);
 		}
 	},
 	startNewGame() {
 		main.innerHTML = "";
 		this.resetGame();
-		this.getRandomIds().forEach((id) => createCard(id));
+		this.getRandomIds().forEach((id) => createCard(this, id));
 	},
 };
 
@@ -40,31 +40,34 @@ function closePair(arr) {
 }
 
 function removePair(arr) {
-	arr.forEach((card) => (card.style.visibility = "hidden"));
+	arr.forEach((item) => (item.style.visibility = "hidden"));
 	arr.length = 0;
 	game.addCount();
 	game.winGame();
 }
 
 function turnCards(arr, card) {
-	if (checkTurn(card)) {
-		game.addMove();
+	if (checkTurn(arr, card)) {
 		arr.push(card);
-		if (checkMatch(arr)) {
-			removePair(arr);
+		if (arr.length === 2) {
+			checkMatch(arr);
+			game.addMove();
 		}
-		closePair(arr);
 	} else {
 		card.classList.toggle("card-active");
 	}
 }
 
 function checkMatch(arr) {
-	return arr[0] !== arr[1] && arr[0].id === arr[1].id;
+	if (arr[0] !== arr[1] && arr[0].id === arr[1].id) {
+		removePair(arr);
+	} else {
+		closePair(arr);
+	}
 }
 
-function checkTurn(card) {
-	return game.currentPair.indexOf(card) === -1 && game.currentPair.length < 2;
+function checkTurn(arr, card) {
+	return arr.indexOf(card) === -1 && arr.length < 2;
 }
 
 function createMenu(title) {
@@ -86,7 +89,7 @@ function createMenu(title) {
 	});
 }
 
-function createCard(id) {
+function createCard(game, id) {
 	const card = document.createElement("div");
 	const front = document.createElement("div");
 	const back = document.createElement("div");
