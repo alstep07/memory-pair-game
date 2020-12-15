@@ -6,15 +6,14 @@ const game = {
 	frontImgSrc: "./img/front.png",
 	getRandomIds() {
 		let ids = [0, 1, 2, 3, 4, 5];
-		return [...ids, ...ids].sort(function () {
-			return 0.5 - Math.random();
-		});
+		return [...ids, ...ids].sort(() => 0.5 - Math.random());
 	},
 	addCount() {
 		this.count++;
 	},
-	resetCount() {
+	resetGame() {
 		this.count = 0;
+		this.moves = 0;
 	},
 	addMove() {
 		this.moves++;
@@ -26,12 +25,47 @@ const game = {
 	},
 	startNewGame() {
 		main.innerHTML = "";
-		this.resetCount();
+		this.resetGame();
 		this.getRandomIds().forEach((id) => createCard(id));
 	},
 };
 
 createMenu("Memory Pairs Game");
+
+function closePair(arr) {
+	setTimeout(function () {
+		arr.forEach((card) => card.classList.toggle("card-active"));
+		arr.length = 0;
+	}, 500);
+}
+
+function removePair(arr) {
+	arr.forEach((card) => (card.style.visibility = "hidden"));
+	arr.length = 0;
+	game.addCount();
+	game.winGame();
+}
+
+function turnCards(arr, card) {
+	if (checkTurn(card)) {
+		game.addMove();
+		arr.push(card);
+		if (checkMatch(arr)) {
+			removePair(arr);
+		}
+		closePair(arr);
+	} else {
+		card.classList.toggle("card-active");
+	}
+}
+
+function checkMatch(arr) {
+	return arr[0] !== arr[1] && arr[0].id === arr[1].id;
+}
+
+function checkTurn(card) {
+	return game.currentPair.indexOf(card) === -1 && game.currentPair.length < 2;
+}
 
 function createMenu(title) {
 	main.innerHTML = "";
@@ -50,38 +84,6 @@ function createMenu(title) {
 	startBtn.addEventListener("click", function () {
 		game.startNewGame();
 	});
-}
-
-function closePair(arr) {
-	setTimeout(function () {
-		arr.forEach((card) => card.classList.toggle("card-active"));
-		arr.length = 0;
-	}, 500);
-}
-
-function removePair(arr) {
-	arr.forEach((card) => (card.style.visibility = "hidden"));
-	arr.length = 0;
-	game.addCount();
-	game.winGame();
-}
-
-function turnCards(arr) {
-	if (arr[0] !== arr[1] && arr[0].id === arr[1].id) {
-		removePair(arr);
-		console.log(arr[1]);
-	}
-	closePair(arr);
-}
-
-function checkTurn(card) {
-	if (game.currentPair.indexOf(card) === -1 && game.currentPair.length < 2) {
-		game.addMove();
-		game.currentPair.push(card);
-		turnCards(game.currentPair);
-	} else {
-		card.classList.toggle("card-active");
-	}
 }
 
 function createCard(id) {
@@ -107,7 +109,7 @@ function createCard(id) {
 
 	card.addEventListener("click", function () {
 		card.classList.toggle("card-active");
-		checkTurn(card);
+		turnCards(game.currentPair, card);
 	});
 
 	main.append(card);
