@@ -1,7 +1,7 @@
 const main = document.querySelector(".main");
-
 const game = {
 	count: 0,
+	moves: 0,
 	currentPair: [],
 	frontImgSrc: "./img/front.png",
 	getRandomIds() {
@@ -13,17 +13,41 @@ const game = {
 	addCount() {
 		this.count++;
 	},
+	addMove() {
+		this.moves++;
+	},
 	winGame() {
 		if (this.count === 6) {
-			setTimeout(function () {
-				alert("You win!");
-			}, 800);
+			createMenu(`You won in ${this.moves / 2} moves!`);
 		}
 	},
 	startNewGame() {
+		main.innerHTML = "";
 		this.getRandomIds().forEach((id) => createCard(id));
 	},
 };
+
+createMenu("Memory Pairs Game");
+
+function createMenu(title){
+	main.innerHTML = "";
+	const startMenu = document.createElement("div");
+	const startHeader = document.createElement("h1");
+	const startBtn = document.createElement("button");
+	startHeader.textContent = title;
+	startBtn.textContent = "New Game";
+
+	startMenu.classList.add("menu");
+	startHeader.classList.add("menu__title");
+	startBtn.classList.add("menu__btn");
+
+	startMenu.append(startHeader, startBtn);
+	main.append(startMenu);
+	startBtn.addEventListener("click", function(){
+	game.startNewGame();
+})
+}
+
 
 function closePair(arr) {
 	setTimeout(function () {
@@ -33,12 +57,10 @@ function closePair(arr) {
 }
 
 function removePair(arr) {
-	setTimeout(function () {
-		arr.forEach((card) => (card.style.visibility = "hidden"));
-		arr.length = 0;
-		game.addCount();
-		game.winGame();
-	}, 500);
+	arr.forEach((card) => (card.style.visibility = "hidden"));
+	arr.length = 0;
+	game.addCount();
+	game.winGame();
 }
 
 function turnCards(arr) {
@@ -51,6 +73,7 @@ function turnCards(arr) {
 
 function checkTurn(card) {
 	if (game.currentPair.indexOf(card) === -1 && game.currentPair.length < 2) {
+		game.addMove();
 		game.currentPair.push(card);
 		turnCards(game.currentPair);
 	} else {
@@ -86,5 +109,3 @@ function createCard(id) {
 
 	main.append(card);
 }
-
-game.startNewGame();

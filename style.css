@@ -3,26 +3,40 @@
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
+	outline: none;
 }
 
-.header {
-	height: 60px;
-	width: 100%;
+body {
+	background-color:#95f1b1
+}
+
+.menu {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width: 425px;
+	height: 200px;
 	background-color: #f1f1f1;
-	text-align: center;
-	padding-top: 0.75rem;
-	box-shadow: 0 0 6px #999;
+	box-shadow: 0 0 6px #555;
+	border-radius: 5px;
+	margin: 150px 170px;
 }
 
-.header__title {
-	font-size: 2rem;
-	color: #3b3b3b;
+.menu__btn {
+	font-size: 1.4rem;
+	width: 200px;
+	height: 60px;
+	background-color:#a5e7e9;
+	border-radius: 5px;
 }
 
 .main {
 	width: 795px;
 	height: 600px;
-	margin: auto;
+	background-color: #95f1b1;
+	margin: 20px auto;
 	padding: 15px;
 	display: grid;
 	grid-gap: 15px;
@@ -32,11 +46,12 @@
 .card {
 	position: relative;
 	background-color: #fff;
-	box-shadow: 0 0 8px #999;
+	box-shadow: 0 0 8px #555;
 	border-radius: 5px;
 	perspective: 1000px;
 	transition: 0.5s;
 	transform-style: preserve-3d;
+	cursor: pointer;
 }
 
 .card-active {
