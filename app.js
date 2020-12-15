@@ -1,34 +1,59 @@
 const main = document.querySelector(".main");
-const frontImgSrc = "./img/front.png";
-const ids = [0,1,2,3,4,5];
-let openCards = [];
+
+const game = {
+	count: 0,
+	currentPair: [],
+	ids: [0, 1, 2, 3, 4, 5],
+	frontImgSrc: "./img/front.png",
+	plus: function () {
+		this.count++;
+	},
+	winGame: function () {
+		if (this.count === 6) {
+			setTimeout(function () {
+				alert("You win!");
+			}, 500);
+		}
+	},
+};
 
 startNewGame();
 
-function closeCards (arr) {
-	arr.forEach(card => card.classList.toggle('card-active'));
-	arr.length = 0;
+function closePair(arr) {
+	setTimeout(function () {
+		arr.forEach((card) => card.classList.toggle("card-active"));
+		arr.length = 0;
+	}, 700);
 }
 
-function removePair(arr){
-	arr.forEach(item => item.style.visibility="hidden");
-			arr.length = 0;
+function removePair(arr) {
+	setTimeout(function () {
+		arr.forEach((card) => (card.style.visibility = "hidden"));
+		arr.length = 0;
+		game.plus();
+		game.winGame();
+	}, 300);
 }
 
-function getRandomIds(arr){
-	return [...arr,...arr].sort(function(){return 0.5 - Math.random()});
+function getRandomIds(arr) {
+	return [...arr, ...arr].sort(function () {
+		return 0.5 - Math.random();
+	});
 }
 
-function turnCards(arr){
-	if (arr.length === 2) {
+function turnCards(arr) {
+	if (arr.length === 2 && arr[0] !== arr[1]) {
 		if (arr[0].id === arr[1].id) {
-			setTimeout(function(){removePair(arr)},500);
+			removePair(arr);
 		} else {
-			setTimeout(function(){closeCards(arr);}, 700);
+			closePair(arr);
 		}
 	}
 }
 
+function startNewGame() {
+	getRandomIds(game.ids).forEach((id) => createCard(id));
+}
 
 function createCard(id) {
 	const card = document.createElement("div");
@@ -41,7 +66,7 @@ function createCard(id) {
 	back.append(backImg);
 	card.append(front, back);
 
-	frontImg.setAttribute("src", frontImgSrc);
+	frontImg.setAttribute("src", game.frontImgSrc);
 	backImg.setAttribute("src", `./img/${id}.png`);
 	card.setAttribute("id", id);
 
@@ -53,13 +78,9 @@ function createCard(id) {
 
 	card.addEventListener("click", function () {
 		card.classList.toggle("card-active");
-		openCards.push(card);
-		turnCards(openCards);
+		game.currentPair.push(card);
+		turnCards(game.currentPair);
 	});
 
 	main.append(card);
-}
-
-function startNewGame(){
-	getRandomIds(ids).forEach(id => createCard(id));
 }
