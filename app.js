@@ -3,42 +3,44 @@ const main = document.querySelector(".main");
 const game = {
 	count: 0,
 	currentPair: [],
-	ids: [0, 1, 2, 3, 4, 5],
 	frontImgSrc: "./img/front.png",
-	plus: function () {
+	getRandomIds: function () {
+		let ids = [0, 1, 2, 3, 4, 5];
+		return [...ids, ...ids].sort(function () {
+			return 0.5 - Math.random();
+		});
+	},
+	plusPoint: function () {
 		this.count++;
 	},
 	winGame: function () {
 		if (this.count === 6) {
 			setTimeout(function () {
 				alert("You win!");
-			}, 500);
+			}, 800);
 		}
+	},
+	startNewGame: function () {
+		this.getRandomIds().forEach((id) => createCard(id));
 	},
 };
 
-startNewGame();
+game.startNewGame();
 
 function closePair(arr) {
 	setTimeout(function () {
 		arr.forEach((card) => card.classList.toggle("card-active"));
 		arr.length = 0;
-	}, 700);
+	}, 600);
 }
 
 function removePair(arr) {
 	setTimeout(function () {
 		arr.forEach((card) => (card.style.visibility = "hidden"));
 		arr.length = 0;
-		game.plus();
+		game.plusPoint();
 		game.winGame();
 	}, 300);
-}
-
-function getRandomIds(arr) {
-	return [...arr, ...arr].sort(function () {
-		return 0.5 - Math.random();
-	});
 }
 
 function turnCards(arr) {
@@ -51,8 +53,14 @@ function turnCards(arr) {
 	}
 }
 
-function startNewGame() {
-	getRandomIds(game.ids).forEach((id) => createCard(id));
+function checkTurn(card){
+	if (game.currentPair.indexOf(card) === -1 && game.currentPair.length < 2) {
+		game.currentPair.push(card);
+		turnCards(game.currentPair);
+	}
+	else {
+		 card.classList.toggle("card-active");
+	}
 }
 
 function createCard(id) {
@@ -78,8 +86,7 @@ function createCard(id) {
 
 	card.addEventListener("click", function () {
 		card.classList.toggle("card-active");
-		game.currentPair.push(card);
-		turnCards(game.currentPair);
+		checkTurn(card);
 	});
 
 	main.append(card);
