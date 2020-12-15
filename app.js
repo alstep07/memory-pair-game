@@ -13,6 +13,9 @@ const game = {
 	addCount() {
 		this.count++;
 	},
+	resetCount() {
+		this.count = 0;
+	},
 	addMove() {
 		this.moves++;
 	},
@@ -23,13 +26,14 @@ const game = {
 	},
 	startNewGame() {
 		main.innerHTML = "";
+		this.resetCount();
 		this.getRandomIds().forEach((id) => createCard(id));
 	},
 };
 
 createMenu("Memory Pairs Game");
 
-function createMenu(title){
+function createMenu(title) {
 	main.innerHTML = "";
 	const startMenu = document.createElement("div");
 	const startHeader = document.createElement("h1");
@@ -43,11 +47,10 @@ function createMenu(title){
 
 	startMenu.append(startHeader, startBtn);
 	main.append(startMenu);
-	startBtn.addEventListener("click", function(){
-	game.startNewGame();
-})
+	startBtn.addEventListener("click", function () {
+		game.startNewGame();
+	});
 }
-
 
 function closePair(arr) {
 	setTimeout(function () {
@@ -66,9 +69,9 @@ function removePair(arr) {
 function turnCards(arr) {
 	if (arr[0] !== arr[1] && arr[0].id === arr[1].id) {
 		removePair(arr);
-	} else {
-		closePair(arr);
+		console.log(arr[1]);
 	}
+	closePair(arr);
 }
 
 function checkTurn(card) {
