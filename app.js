@@ -10,6 +10,11 @@ function closeCards (arr) {
 	arr.length = 0;
 }
 
+function removePair(arr){
+	arr.forEach(item => item.style.visibility="hidden");
+			arr.length = 0;
+}
+
 function getRandomIds(arr){
 	return [...arr,...arr].sort(function(){return 0.5 - Math.random()});
 }
@@ -17,10 +22,9 @@ function getRandomIds(arr){
 function turnCards(arr){
 	if (arr.length === 2) {
 		if (arr[0].id === arr[1].id) {
-			arr.forEach(item => item.style.visibility="hidden");
-			arr.length = 0;
+			setTimeout(function(){removePair(arr)},500);
 		} else {
-			setTimeout(closeCards(arr), 1000);
+			setTimeout(function(){closeCards(arr);}, 700);
 		}
 	}
 }
