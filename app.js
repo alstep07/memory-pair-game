@@ -4,62 +4,57 @@ const game = {
 	count: 0,
 	currentPair: [],
 	frontImgSrc: "./img/front.png",
-	getRandomIds: function () {
+	getRandomIds() {
 		let ids = [0, 1, 2, 3, 4, 5];
 		return [...ids, ...ids].sort(function () {
 			return 0.5 - Math.random();
 		});
 	},
-	plusPoint: function () {
+	addCount() {
 		this.count++;
 	},
-	winGame: function () {
+	winGame() {
 		if (this.count === 6) {
 			setTimeout(function () {
 				alert("You win!");
 			}, 800);
 		}
 	},
-	startNewGame: function () {
+	startNewGame() {
 		this.getRandomIds().forEach((id) => createCard(id));
 	},
 };
-
-game.startNewGame();
 
 function closePair(arr) {
 	setTimeout(function () {
 		arr.forEach((card) => card.classList.toggle("card-active"));
 		arr.length = 0;
-	}, 600);
+	}, 500);
 }
 
 function removePair(arr) {
 	setTimeout(function () {
 		arr.forEach((card) => (card.style.visibility = "hidden"));
 		arr.length = 0;
-		game.plusPoint();
+		game.addCount();
 		game.winGame();
-	}, 300);
+	}, 500);
 }
 
 function turnCards(arr) {
-	if (arr.length === 2 && arr[0] !== arr[1]) {
-		if (arr[0].id === arr[1].id) {
-			removePair(arr);
-		} else {
-			closePair(arr);
-		}
+	if (arr[0] !== arr[1] && arr[0].id === arr[1].id) {
+		removePair(arr);
+	} else {
+		closePair(arr);
 	}
 }
 
-function checkTurn(card){
+function checkTurn(card) {
 	if (game.currentPair.indexOf(card) === -1 && game.currentPair.length < 2) {
 		game.currentPair.push(card);
 		turnCards(game.currentPair);
-	}
-	else {
-		 card.classList.toggle("card-active");
+	} else {
+		card.classList.toggle("card-active");
 	}
 }
 
@@ -91,3 +86,5 @@ function createCard(id) {
 
 	main.append(card);
 }
+
+game.startNewGame();
