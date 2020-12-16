@@ -52,7 +52,6 @@ body {
 	transition: 0.5s;
 	transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
 	-ms-transform-style: preserve-3d;
 	-o-transform-style: preserve-3d;
 	transform-style: preserve-3d;
@@ -60,6 +59,10 @@ body {
 
 .card-active {
 	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
 }
 
 .card__front,
