@@ -69,7 +69,7 @@ body {
 .card__back {
 	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
-	-ms-backface-visibility: visible;
+	-ms-backface-visibility: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -81,7 +81,7 @@ body {
 }
 
 .card__front {
-	z-index: 2;
+	z-index: 1;
 	transform: rotateY(0deg);
 	-webkit-transform: rotateY(0deg);
 	-moz-transform: rotateY(0deg);
