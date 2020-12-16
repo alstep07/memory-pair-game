@@ -86,7 +86,7 @@ body {
 }
 
 .card__img {
-	z-index: 3;
+	z-index: 1;
 	max-width: 80%;
 	max-height: 80%;
 }
