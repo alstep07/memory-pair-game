@@ -10,28 +10,6 @@ body {
 	background-color: #95f1b1;
 }
 
-.menu {
-	grid-row: 2 / 2;
-	grid-column: 2 / 4;
-	height: 200px;
-	padding: 20px;
-	background-color: #f1f1f1;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-	box-shadow: 0 0 6px #555;
-	border-radius: 5px;
-}
-
-.menu__btn {
-	font-size: 1.4rem;
-	width: 200px;
-	height: 60px;
-	background-color: #a5e7e9;
-	border-radius: 5px;
-}
-
 .main {
 	width: 795px;
 	height: 600px;
@@ -43,8 +21,34 @@ body {
 	grid-template: repeat(3, 1fr) / repeat(4, 1fr);
 }
 
-.card {
+.menu {
+	grid-row: 2 / 2;
+	grid-column: 2 / 4;
+	max-height: 200px;
+	padding: 1rem;
+	background-color: #f1f1f1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	box-shadow: 0 0 6px #555;
+	border-radius: 5px;
+}
 
+.menu__title {
+	font-size: 1.8rem;
+}
+
+.menu__btn {
+	font-size: 1.4rem;
+	margin-top: 0.5rem;
+	width: 60%;
+	height: 3.5rem;
+	background-color: #a5e7e9;
+	border-radius: 5px;
+}
+
+.card {
 	perspective: 1000px;
 }
 
@@ -119,6 +123,10 @@ body {
 		grid-row: 2 / 2;
 		grid-column: 1 / 5;
 	}
+
+	.menu__title {
+		font-size: 1.6rem;
+	}
 }
 
 @media screen and (orientation: portrait) and (max-width: 884px) {
@@ -126,8 +134,8 @@ body {
 		width: 96vw;
 		height: 128vw;
 		background-color: #95f1b1;
-		margin: 20px auto;
-		padding: 10px;
+		margin: 1rem auto;
+		padding: 1rem;
 		display: grid;
 		grid-template: repeat(4, 1fr) / repeat(3, 1fr);
 	}
