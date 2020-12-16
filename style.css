@@ -11,9 +11,9 @@ body {
 }
 
 .menu {
-	width: 425px;
+	grid-row: 2 / 2;
+	grid-column: 2 / 4;
 	height: 200px;
-	margin: 150px 170px;
 	padding: 20px;
 	background-color: #f1f1f1;
 	display: flex;
@@ -40,7 +40,7 @@ body {
 	padding: 15px;
 	display: grid;
 	grid-gap: 15px;
-	grid-template: repeat(3, 180px) / repeat(4, 180px);
+	grid-template: repeat(3, 1fr) / repeat(4, 1fr);
 }
 
 .card {
@@ -51,7 +51,11 @@ body {
 	perspective: 1000px;
 	transition: 0.5s;
 	transform-style: preserve-3d;
-	cursor: pointer;
+	-webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 .card-active {
@@ -85,4 +89,44 @@ body {
 	z-index: 3;
 	max-width: 80%;
 	max-height: 80%;
+}
+
+@media screen and (orientation: portrait) and (max-width: 576px) {
+	.main {
+		width: 100vw;
+		height: 133vw;
+		background-color: #95f1b1;
+		margin: 10px auto;
+		padding: 10px;
+		display: grid;
+		grid-gap: 10px;
+		grid-template: repeat(4, 1fr) / repeat(3, 1fr);
+
+	}
+
+	.menu {
+		grid-row: 2 / 2;
+		grid-column: 1 / 5;
+	}
+}
+
+@media screen and (orientation: portrait) and (max-width: 876px){
+	.main {
+		width: 100vw;
+		height: 75vw;
+		grid-template: repeat(3, 1fr) / repeat(4, 1fr);
+	}
+}
+
+@media screen and (orientation: landscape) and (max-width: 991px) {
+	.main {
+		width: 120vh;
+		height: 90vh;
+		grid-template: repeat(3, 1fr) / repeat(4, 1fr);
+	}
+
+	.menu {
+		grid-row: 2 / 2;
+		grid-column: 1 / 5;
+	}
 }

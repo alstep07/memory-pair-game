@@ -32,20 +32,6 @@ const game = {
 
 createMenu("Memory Pairs Game");
 
-function closePair(arr) {
-	setTimeout(function () {
-		arr.forEach((card) => card.classList.toggle("card-active"));
-		arr.length = 0;
-	}, 500);
-}
-
-function removePair(arr) {
-	arr.forEach((item) => (item.style.visibility = "hidden"));
-	arr.length = 0;
-	game.addCount();
-	game.winGame();
-}
-
 function turnCards(arr, card) {
 	if (checkTurn(arr, card)) {
 		arr.push(card);
@@ -59,7 +45,7 @@ function turnCards(arr, card) {
 }
 
 function checkMatch(arr) {
-	if (arr[0] !== arr[1] && arr[0].id === arr[1].id) {
+	if (arr[0].id === arr[1].id) {
 		removePair(arr);
 	} else {
 		closePair(arr);
@@ -68,6 +54,20 @@ function checkMatch(arr) {
 
 function checkTurn(arr, card) {
 	return arr.indexOf(card) === -1 && arr.length < 2;
+}
+
+function closePair(arr) {
+	setTimeout(function () {
+		arr.forEach((card) => card.classList.toggle("card-active"));
+		arr.length = 0;
+	}, 500);
+}
+
+function removePair(arr) {
+	arr.forEach((item) => (item.style.visibility = "hidden"));
+	arr.length = 0;
+	game.addCount();
+	game.winGame();
 }
 
 function createMenu(title) {
