@@ -92,7 +92,6 @@ body {
 }
 
 .card__front {
-	z-index: 2;
 	transform: rotateY(0deg);
 	-webkit-transform: rotateY(0deg);
 	-moz-transform: rotateY(0deg);
@@ -101,7 +100,6 @@ body {
 }
 
 .card__back {
-	z-index: 1;
 	transform: rotateY(180deg);
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);
