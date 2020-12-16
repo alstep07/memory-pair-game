@@ -58,7 +58,7 @@ function checkTurn(arr, card) {
 
 function closePair(arr) {
 	setTimeout(function () {
-		arr.forEach((card) => card.classList.toggle("card-active"));
+		arr.forEach((item) => item.classList.toggle("card-active"));
 		arr.length = 0;
 	}, 500);
 }
@@ -91,6 +91,7 @@ function createMenu(title) {
 
 function createCard(game, id) {
 	const card = document.createElement("div");
+	const cardFlipper = document.createElement("div");
 	const front = document.createElement("div");
 	const back = document.createElement("div");
 	const frontImg = document.createElement("img");
@@ -98,7 +99,8 @@ function createCard(game, id) {
 
 	front.append(frontImg);
 	back.append(backImg);
-	card.append(front, back);
+	cardFlipper.append(front, back);
+	card.append(cardFlipper);
 
 	frontImg.setAttribute("src", game.frontImgSrc);
 	backImg.setAttribute("src", `./img/${id}.png`);
@@ -109,6 +111,7 @@ function createCard(game, id) {
 	frontImg.classList.add("card__img");
 	backImg.classList.add("card__img");
 	card.classList.add("card");
+	cardFlipper.classList.add("card__flipper");
 
 	card.addEventListener("click", function () {
 		card.classList.toggle("card-active");
