@@ -65,6 +65,8 @@ body {
 .card__front,
 .card__back {
 	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	-ms-backface-visibility: visible;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -78,11 +80,19 @@ body {
 .card__front {
 	z-index: 2;
 	transform: rotateY(0deg);
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
 }
 
 .card__back {
 	z-index: 0;
 	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
 }
 
 .card__img {
