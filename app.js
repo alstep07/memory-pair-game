@@ -64,8 +64,10 @@ function closePair(arr) {
 }
 
 function removePair(arr) {
-	arr.forEach((item) => (item.style.visibility = "hidden"));
-	arr.length = 0;
+	setTimeout(function () {
+		arr.forEach((item) => (item.style.visibility = "hidden"));
+		arr.length = 0;
+	}, 500);
 	game.addCount();
 	game.winGame();
 }
