@@ -30,24 +30,24 @@ const game = {
 	startNewGame() {
 		main.innerHTML = "";
 		this.resetGame();
-		this.getRandomIds().forEach((id) =>
-			main.innerHTML += createCard(this, id));
+		this.getRandomIds().forEach(
+			(id) => (main.innerHTML += createCard(this, id))
+		);
 	},
 };
 
 createMenu("Memory Pairs Game");
 
-main.addEventListener("click", function ({target}) {
-	let card = target.closest('.card')
+main.addEventListener("click", function ({ target }) {
+	let card = target.closest(".card");
 	if (card) {
 		turnPair(game.currentPair, card);
 	}
 });
 
 function turnPair(openedCards, card) {
-	console.log(openedCards, card)
 	if (checkTurn(openedCards, card)) {
-		openedCards.push(card.id);
+		openedCards.push(card);
 		if (openedCards.length === 2) {
 			checkMatch(openedCards);
 			game.addMove();
@@ -58,10 +58,11 @@ function turnPair(openedCards, card) {
 }
 
 function checkTurn(openedCards, card) {
-	return !openedCards.includes(card.id) && openedCards.length < 2;
+	return !openedCards.includes(card) && openedCards.length < 2;
 }
 
 function checkMatch(openedCards) {
+	console.log(openedCards)
 	if (openedCards[0] === openedCards[1]) {
 		removePair(openedCards);
 	} else {
@@ -70,17 +71,13 @@ function checkMatch(openedCards) {
 }
 
 function closePair(openedCards) {
-	setTimeout(function () {
-		openedCards.forEach((card) => turnCard(card));
-		openedCards.length = 0;
-	}, CARD_DELAY);
+	openedCards.forEach((card) => turnCard(card));
+	openedCards.length = 0;
 }
 
 function removePair(openedCards) {
-	setTimeout(function () {
-		openedCards.forEach(card => removeCard(card));
-		openedCards.length = 0;
-	}, CARD_DELAY);
+	openedCards.forEach((card) => removeCard(card));
+	openedCards.length = 0;
 	game.addCount();
 	game.showMenu();
 }
@@ -122,7 +119,7 @@ function createCard(game, id) {
             <img src="./img/${id}.png" alt="" class="card__img">
         </div>
     </div>
-</div>`
+</div>`;
 
-return card;
+	return card;
 }
