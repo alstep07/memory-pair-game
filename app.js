@@ -71,13 +71,17 @@ function checkMatch(openedCards) {
 }
 
 function closePair(openedCards) {
-	openedCards.forEach((card) => turnCard(card));
-	openedCards.length = 0;
+	setTimeout(function () {
+		openedCards.forEach((card) => turnCard(card));
+		openedCards.length = 0;
+	}, CARD_DELAY);
 }
 
 function removePair(openedCards) {
-	openedCards.forEach((card) => removeCard(card));
-	openedCards.length = 0;
+	setTimeout(function () {
+		openedCards.forEach((card) => removeCard(card));
+		openedCards.length = 0;
+	});
 	game.addCount();
 	game.showMenu();
 }
