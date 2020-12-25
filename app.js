@@ -42,12 +42,12 @@ main.addEventListener("click", function ({ target }) {
 	let card = target.closest(".card");
 	if (card) {
 		turnCard(card);
-		turnPair(game.currentPair, card);
+		makeMove(game.currentPair, card);
 	}
 });
 
-function turnPair(openedCards, card) {
-	if (checkTurn(openedCards, card)) {
+function makeMove(openedCards, card) {
+	if (checkPair(openedCards, card)) {
 		openedCards.push(card);
 		if (openedCards.length === 2) {
 			checkMatch(openedCards);
@@ -58,7 +58,7 @@ function turnPair(openedCards, card) {
 	}
 }
 
-function checkTurn(openedCards, card) {
+function checkPair(openedCards, card) {
 	return !openedCards.includes(card) && openedCards.length < 2;
 }
 
@@ -81,7 +81,7 @@ function removePair(openedCards) {
 	setTimeout(function () {
 		openedCards.forEach((card) => removeCard(card));
 		openedCards.length = 0;
-	});
+	}, CARD_DELAY);
 	game.addCount();
 	game.showMenu();
 }
@@ -95,19 +95,11 @@ function removeCard(card) {
 }
 
 function createMenu(title) {
-	main.innerHTML = "";
-	const startMenu = document.createElement("div");
-	const startHeader = document.createElement("h1");
-	const startBtn = document.createElement("button");
-	startHeader.textContent = title;
-	startBtn.textContent = "New Game";
-
-	startMenu.classList.add("menu");
-	startHeader.classList.add("menu__title");
-	startBtn.classList.add("menu__btn");
-
-	startMenu.append(startHeader, startBtn);
-	main.append(startMenu);
+	main.innerHTML = `<div class="menu">
+    					<h1 class="menu__title">${title}</h1>
+    					<button class="menu__btn">New Game</button>
+					</div>`;
+	const startBtn = document.querySelector(".menu__btn");
 	startBtn.addEventListener("click", function () {
 		game.startNewGame();
 	});

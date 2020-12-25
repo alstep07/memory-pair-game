@@ -59,7 +59,7 @@ body {
 	height: 100%;
 	background-color: #fff;
 	box-shadow: 0 0 8px #555;
-	border-radius: 5px;
+	border-radius: 10px;
 	transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
 	-ms-transform-style: preserve-3d;
