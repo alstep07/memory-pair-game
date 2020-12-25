@@ -30,19 +30,24 @@ const game = {
 	startNewGame() {
 		main.innerHTML = "";
 		this.resetGame();
-		const container = document.createDocumentFragment();
 		this.getRandomIds().forEach((id) =>
-			container.append(createCard(this, id))
-		);
-		main.append(container);
+			main.innerHTML += createCard(this, id));
 	},
 };
 
 createMenu("Memory Pairs Game");
 
+main.addEventListener("click", function ({target}) {
+	let card = target.closest('.card')
+	if (card) {
+		turnPair(game.currentPair, card);
+	}
+});
+
 function turnPair(openedCards, card) {
+	console.log(openedCards, card)
 	if (checkTurn(openedCards, card)) {
-		openedCards.push(card);
+		openedCards.push(card.id);
 		if (openedCards.length === 2) {
 			checkMatch(openedCards);
 			game.addMove();
@@ -53,11 +58,11 @@ function turnPair(openedCards, card) {
 }
 
 function checkTurn(openedCards, card) {
-	return !openedCards.includes(card) && openedCards.length < 2;
+	return !openedCards.includes(card.id) && openedCards.length < 2;
 }
 
 function checkMatch(openedCards) {
-	if (openedCards[0].id === openedCards[1].id) {
+	if (openedCards[0] === openedCards[1]) {
 		removePair(openedCards);
 	} else {
 		closePair(openedCards);
@@ -108,33 +113,16 @@ function createMenu(title) {
 }
 
 function createCard(game, id) {
-	const card = document.createElement("div");
-	const cardFlipper = document.createElement("div");
-	const front = document.createElement("div");
-	const back = document.createElement("div");
-	const frontImg = document.createElement("img");
-	const backImg = document.createElement("img");
+	const card = `<div id=${id} class="card">
+    <div class="card__flipper">
+        <div class="card__front">
+            <img src=${game.frontImgSrc} alt="" class="card__img">
+        </div>
+        <div class="card__back">
+            <img src="./img/${id}.png" alt="" class="card__img">
+        </div>
+    </div>
+</div>`
 
-	front.append(frontImg);
-	back.append(backImg);
-	cardFlipper.append(front, back);
-	card.append(cardFlipper);
-
-	frontImg.setAttribute("src", game.frontImgSrc);
-	backImg.setAttribute("src", `./img/${id}.png`);
-	card.setAttribute("id", id);
-
-	front.classList.add("card__front");
-	back.classList.add("card__back");
-	frontImg.classList.add("card__img");
-	backImg.classList.add("card__img");
-	card.classList.add("card");
-	cardFlipper.classList.add("card__flipper");
-
-	card.addEventListener("click", function () {
-		turnCard(card);
-		turnPair(game.currentPair, card);
-	});
-
-	return card;
+return card;
 }
