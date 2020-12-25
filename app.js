@@ -81,9 +81,9 @@ function removePair(openedCards) {
 	setTimeout(function () {
 		openedCards.forEach((card) => removeCard(card));
 		openedCards.length = 0;
+		game.addCount();
+		game.showMenu();
 	}, CARD_DELAY);
-	game.addCount();
-	game.showMenu();
 }
 
 function turnCard(card) {
@@ -91,7 +91,7 @@ function turnCard(card) {
 }
 
 function removeCard(card) {
-	card.style.visibility = "hidden";
+	card.classList.toggle("card-hidden");
 }
 
 function createMenu(title) {

@@ -53,13 +53,19 @@ body {
 	cursor: pointer;
 }
 
+.card-hidden {
+	opacity: 0.3;
+	transform: scale(0) rotate(1turn);
+	transition: all 1s;
+}
+
 .card__flipper {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	background-color: #fff;
 	box-shadow: 0 0 8px #555;
-	border-radius: 10px;
+	border-radius: 5px;
 	transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
 	-ms-transform-style: preserve-3d;
