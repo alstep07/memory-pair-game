@@ -41,6 +41,7 @@ createMenu("Memory Pairs Game");
 main.addEventListener("click", function ({ target }) {
 	let card = target.closest(".card");
 	if (card) {
+		turnCard(card);
 		turnPair(game.currentPair, card);
 	}
 });
@@ -62,8 +63,7 @@ function checkTurn(openedCards, card) {
 }
 
 function checkMatch(openedCards) {
-	console.log(openedCards)
-	if (openedCards[0] === openedCards[1]) {
+	if (openedCards[0].id === openedCards[1].id) {
 		removePair(openedCards);
 	} else {
 		closePair(openedCards);
